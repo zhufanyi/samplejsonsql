@@ -9,47 +9,47 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.samplejsonsql.MainActivity" >
 
-    
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_alignParentTop="true"
-        >
+        android:orientation="horizontal" >
+
+        <EditText
+            android:id="@+id/edit_select"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="TABLE NAME" />
+
         <TextView
-        android:id="@+id/fields_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-        <ImageView
-        android:id="@+id/fields_image"
-        android:src="@drawable/ic_launcher"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-        
+            android:id="@+id/fields_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
     </LinearLayout>
-    
-    <Button 
+
+    <Button
         android:id="@+id/button_select"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="SELECT"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true" />"
-    <Button 
+        android:text="SELECT" />
+"
+
+    <Button
         android:id="@+id/button_create_alt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="CREATE 1"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"/>
-    <Button 
+        android:text="CREATE 1" />
+
+    <Button
         android:id="@+id/button_create"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="CREATE 2"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"/>
-    
-    
+        android:text="CREATE 2" />
 
 </RelativeLayout>

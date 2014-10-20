@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 
 public class MainActivity extends Activity {
 
@@ -28,6 +29,9 @@ public class MainActivity extends Activity {
 			+ "		}\n" + "}";
 
 	private SampleSQLHelper dbHelper;
+
+	private ProductFragment fragment;
+	private EditText editSelect;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +57,7 @@ public class MainActivity extends Activity {
 					values.put("sale_price", json.getString("sale_price"));
 				} catch (JSONException e) {
 					// Json failed for whatever reason
-					Log.w("MainActivity", e);
+					Log.w("MainActivity", "json failure:" + e);
 				}
 				long id = db.insert("product", "name", values);
 			}
@@ -61,14 +65,20 @@ public class MainActivity extends Activity {
 		Button createButton = (Button) findViewById(R.id.button_create);
 		createButton.setOnClickListener(insertClickListener);
 
+		Button createButtonAlt = (Button) findViewById(R.id.button_create_alt);
+		createButtonAlt.setOnClickListener(insertClickListener);
+
+		editSelect = (EditText) findViewById(R.id.edit_select);
+
 		Button selectbutton = (Button) findViewById(R.id.button_select);
 		// starts new fragment with current database
 		selectbutton.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				ProductFragment fragment = new ProductFragment();
+				fragment = new ProductFragment();
 				fragment.setSQLDatabase(dbHelper);
+				fragment.setSelectTable(editSelect.getText().toString());
 				getFragmentManager().beginTransaction()
 						.add(R.id.main_layout, fragment).commit();
 
@@ -89,6 +99,11 @@ public class MainActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
+			// easy kill for fragment
+			if (fragment != null) {
+				getFragmentManager().beginTransaction().detach(fragment)
+						.commit();
+			}
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
@@ -102,7 +117,6 @@ public class MainActivity extends Activity {
 		public SampleSQLHelper(Context context, String name,
 				CursorFactory factory, int version) {
 			super(context, name, factory, version);
-			// TODO Auto-generated constructor stub
 		}
 
 		public SampleSQLHelper(Context context) {
@@ -111,7 +125,6 @@ public class MainActivity extends Activity {
 
 		@Override
 		public void onCreate(SQLiteDatabase db) {
-			// TODO Auto-generated method stub
 			db.execSQL(DATABASE_CREATE);
 
 		}
